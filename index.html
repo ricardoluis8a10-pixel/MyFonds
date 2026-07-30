@@ -693,7 +693,8 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var
   .modal-bg{ align-items:flex-end;padding:0 }
   .modal{
     width:100%;max-width:100%;border-radius:24px 24px 0 0;
-    padding:1.4rem 1.2rem;max-height:92vh;
+    padding:1.4rem 1.2rem 1.8rem; /* Asegurar padding inferior */
+    max-height:92vh;
     animation:slideUp .3s cubic-bezier(.4,0,.2,1);
   }
   @keyframes slideUp{
@@ -2105,6 +2106,13 @@ function openModal(day){
   document.getElementById('txMedio').value = 'banco';
   updateTxForm();
   renderModalTxs();
+  
+  // Ocultar nav inferior y FAB al abrir el modal
+  const mobileNav = document.querySelector('.mobile-nav');
+  const fab = document.getElementById('fabBtn');
+  if (mobileNav) mobileNav.style.display = 'none';
+  if (fab) fab.style.display = 'none';
+  
   document.getElementById('modalBg').classList.add('open');
 }
 
@@ -2163,7 +2171,14 @@ function renderModalTxs(){
   el.innerHTML += saldoHtml;
 }
 
-function closeModal(){ document.getElementById('modalBg').classList.remove('open'); }
+function closeModal(){
+  document.getElementById('modalBg').classList.remove('open');
+  // Restaurar nav inferior y FAB
+  const mobileNav = document.querySelector('.mobile-nav');
+  const fab = document.getElementById('fabBtn');
+  if (mobileNav) mobileNav.style.display = '';
+  if (fab) fab.style.display = '';
+}
 
 function saveTransaction(){
   const today = new Date();
@@ -2211,6 +2226,7 @@ function saveTransaction(){
   renderCalendar();
   showToast('Transacción guardada ✓');
   if(document.getElementById('page-dashboard').classList.contains('active')) renderDashboard();
+  closeModal(); // closeModal ya restaura el nav
 }
 
 function deleteTx(id){
@@ -2279,7 +2295,16 @@ function openEditModal(id){
   document.getElementById('editTxTags').value = tx.tags||'';
   document.getElementById('editModalBg').classList.add('open');
 }
-function closeEditModal(){ document.getElementById('editModalBg').classList.remove('open'); }
+
+function closeEditModal(){
+  document.getElementById('editModalBg').classList.remove('open');
+  // Restaurar por si acaso (aunque este modal no tiene el problema del nav inferior, lo incluimos por consistencia)
+  const mobileNav = document.querySelector('.mobile-nav');
+  const fab = document.getElementById('fabBtn');
+  if (mobileNav) mobileNav.style.display = '';
+  if (fab) fab.style.display = '';
+}
+
 function saveEditedTx(){
   const id = parseInt(document.getElementById('editTxId').value);
   const type = document.getElementById('editTxType').value;
