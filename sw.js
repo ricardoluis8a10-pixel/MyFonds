@@ -3,7 +3,7 @@
 //  Cachea los archivos esenciales para funcionar offline
 // ============================================================
 
-const CACHE_NAME = 'myfonds-v1';
+const CACHE_NAME = 'myfonds-v2';
 const urlsToCache = [
   './',
   './index.html',
