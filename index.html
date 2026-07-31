@@ -273,46 +273,114 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var
   box-shadow:0 2px 8px rgba(16,185,129,0.20);
 }
 
-/* ========== CALENDAR ========== */
+/* ========== CALENDAR CORREGIDO ========== */
 .cal-wrap{
-  background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);
-  overflow:hidden;box-shadow:var(--shadow);
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+  box-shadow:var(--shadow);
 }
 .cal-header-row{
-  display:grid;grid-template-columns:repeat(7,1fr);
-  background:var(--bg3);border-bottom:1px solid var(--border);
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  background:var(--bg3);
+  border-bottom:1px solid var(--border);
 }
-.cal-header-cell{text-align:center;font-size:12px;font-weight:700;color:var(--text2);padding:12px 0;text-transform:uppercase;letter-spacing:0.08em}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr)}
+.cal-header-cell{
+  text-align:center;
+  font-size:12px;
+  font-weight:700;
+  color:var(--text2);
+  padding:12px 0;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+}
+.cal-grid{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  grid-auto-rows:1fr; /* Todas las filas con la misma altura */
+}
 .cal-day{
-  border-right:1px solid var(--border);border-bottom:1px solid var(--border);
-  min-height:120px;padding:10px;cursor:pointer;transition:var(--transition);
-  position:relative;background:var(--bg2);
+  display:flex;
+  flex-direction:column;
+  min-height:100px; /* Altura mínima en escritorio */
+  padding:4px 6px;
+  overflow:hidden; /* Evita que el contenido desborde */
+  border-right:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  background:var(--bg2);
+  cursor:pointer;
+  transition:var(--transition);
 }
 .cal-day:hover{background:var(--bg3)}
 .cal-day:nth-child(7n){border-right:none}
 .cal-day.empty{background:var(--bg3);cursor:default;opacity:0.4}
-.cal-day.today{outline:3px solid var(--blue);outline-offset:-3px;z-index:1;border-radius:4px}
+.cal-day.today{
+  outline:3px solid var(--blue);
+  outline-offset:-3px;
+  z-index:1;
+  border-radius:4px;
+}
 .cal-day .day-num{
-  font-size:14px;font-weight:700;color:var(--text2);
-  margin-bottom:6px;width:30px;height:30px;
-  display:flex;align-items:center;justify-content:center;border-radius:50%;
+  flex-shrink:0;
+  font-size:14px;
+  font-weight:700;
+  color:var(--text2);
+  width:28px;
+  height:28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  margin-bottom:2px;
   transition:var(--transition);
 }
-.cal-day.today .day-num{background:var(--blue);color:#fff;box-shadow:0 4px 12px rgba(37,99,235,0.30)}
+.cal-day.today .day-num{
+  background:var(--blue);
+  color:#fff;
+  box-shadow:0 4px 12px rgba(37,99,235,0.30);
+}
+.chips-container{
+  flex:1 1 auto;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
 .tx-chip{
-  font-size:10px;font-weight:600;padding:3px 8px;border-radius:6px;
-  margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-  max-width:100%;display:inline-block;
+  font-size:10px;
+  font-weight:600;
+  padding:2px 4px;
+  border-radius:4px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:100%;
+  display:inline-block;
+  line-height:1.2;
 }
 .tx-chip.ingreso{background:#D1FAE5;color:#065F46}
 .tx-chip.egreso{background:#FEE2E2;color:#991B1B}
 .tx-chip.transferencia{background:#DBEAFE;color:#1E40AF}
 .tx-chip.retiro{background:#FEF3C7;color:#92400E}
-.chip-more{font-size:10px;color:var(--text3);font-weight:600;margin-top:2px}
+.chip-more{
+  font-size:10px;
+  color:var(--text3);
+  font-weight:600;
+  margin-top:1px;
+}
 .day-saldo{
-  font-size:10px;color:var(--text3);margin-top:4px;font-weight:500;
-  display:flex;align-items:center;gap:4px;
+  margin-top:auto;
+  font-size:10px;
+  color:var(--text3);
+  font-weight:500;
+  display:flex;
+  align-items:center;
+  gap:4px;
+  flex-shrink:0;
+  padding-top:2px;
+  border-top:1px dashed var(--border);
 }
 .day-saldo i{font-size:9px}
 
@@ -358,10 +426,31 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var
 .chart-card h4{font-size:12px;font-weight:700;color:var(--text2);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.06em}
 .legend-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;font-size:13px;color:var(--text2);font-weight:500}
 .legend-dot{width:14px;height:14px;border-radius:4px;display:inline-block;margin-right:6px;vertical-align:middle}
-.cat-table{width:100%;border-collapse:collapse;font-size:13px}
-.cat-table th{text-align:left;padding:10px 8px;font-weight:700;color:var(--text2);border-bottom:2px solid var(--border);font-size:12px;text-transform:uppercase;letter-spacing:0.06em}
-.cat-table td{padding:10px 8px;color:var(--text);border-bottom:1px solid var(--border)}
+.cat-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:13px;
+}
+.cat-table th{
+  text-align:left;
+  padding:10px 8px;
+  font-weight:700;
+  color:var(--text2);
+  border-bottom:2px solid var(--border);
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:0.06em;
+}
+.cat-table td{
+  padding:10px 8px;
+  color:var(--text);
+  border-bottom:1px solid var(--border);
+}
 .cat-table tr:last-child td{border-bottom:none}
+.cat-table tr.total-row td{
+  border-top:2px solid var(--border);
+  font-weight:700;
+}
 .section-title{
   font-size:18px;font-weight:800;color:var(--text);margin:2rem 0 1rem;
   display:flex;align-items:center;gap:12px;letter-spacing:-0.3px;
@@ -527,9 +616,11 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var
 @media(max-width:640px){
   .nav{padding:0 0.8rem}
   .nav-tab{padding:12px 12px;font-size:13px}
-  .cal-day{min-height:80px;padding:6px}
-  .day-num{font-size:12px}
-  .tx-chip{font-size:9px}
+  .cal-day{min-height:58px;padding:4px 3px}
+  .cal-day .day-num{font-size:11px;width:22px;height:22px}
+  .tx-chip{font-size:9px;padding:2px 4px}
+  .chip-more{font-size:9px}
+  .day-saldo{display:none}
   .s-card-val{font-size:20px}
   .historical-item .value{font-size:18px}
   .modal{width:95%;padding:1.2rem}
@@ -693,7 +784,7 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var
   .modal-bg{ align-items:flex-end;padding:0 }
   .modal{
     width:100%;max-width:100%;border-radius:24px 24px 0 0;
-    padding:1.4rem 1.2rem 1.8rem; /* Asegurar padding inferior */
+    padding:1.4rem 1.2rem 1.8rem;
     max-height:92vh;
     animation:slideUp .3s cubic-bezier(.4,0,.2,1);
   }
@@ -746,6 +837,11 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var
 
   /* Quick amounts */
   .quick-amounts{ display:flex }
+
+  /* Tabla categorías scroll horizontal en móvil */
+  #catTableWrap{ overflow-x:auto }
+  .cat-table{ font-size:12px; min-width:500px }
+  .cat-table th, .cat-table td{ padding:6px 6px }
 }
 
 @media(min-width:641px){
@@ -1720,14 +1816,12 @@ function getBudgetStatus(spent,limit){
   return {cls:'bs-normal', icon:'🟢', label:'Normal'};
 }
 
-// --- CALENDARIO ---
+// --- CALENDARIO (CORREGIDO) ---
 function renderCalendar(){
   document.getElementById('monthLabel').textContent = `${MONTHS[curMonth]} ${curYear}`;
   const salary = getSalary(curYear, curMonth);
-  // Mostrar el valor como número simple, sin formato adicional
   document.getElementById('salaryInput').value = salary > 0 ? salary.toString() : '';
   
-  // Selector de banco para el sueldo
   const bankSelect = document.getElementById('salaryBankSelect');
   const banks = getBanks();
   const defaultBank = getDefaultBankId();
@@ -1750,14 +1844,54 @@ function renderCalendar(){
     const el = document.createElement('div');
     el.className = 'cal-day' + (isToday ? ' today' : '');
     el.onclick = ()=>openModal(d);
+    
+    // Número del día
     const numDiv = document.createElement('div');
     numDiv.className = 'day-num';
     numDiv.textContent = d;
     el.appendChild(numDiv);
 
-    if(dayTxs.length){
+    // Contenedor de chips
+    const chipsContainer = document.createElement('div');
+    chipsContainer.className = 'chips-container';
+    
+    // Mostrar hasta 3 chips
+    const maxChips = 3;
+    const chipsToShow = dayTxs.slice(0, maxChips);
+    chipsToShow.forEach(t => {
+      const chip = document.createElement('div');
+      let cls = t.type;
+      if (t.type === 'transferencia') {
+        cls = t.destino === 'efectivo' ? 'retiro' : 'transferencia';
+      }
+      chip.className = 'tx-chip '+cls;
+      const label = t.type === 'transferencia' ? (t.destino === 'efectivo' ? '💰' : '🔄') : (t.type==='ingreso'?'+':'-');
+      chip.title = `${t.cat || 'Transferencia'}: $${t.amount.toFixed(2)} — ${t.desc||''}`;
+      chip.textContent = `${t.time} ${label}$${t.amount.toFixed(0)}`;
+      chipsContainer.appendChild(chip);
+    });
+    
+    if (dayTxs.length > maxChips) {
+      const more = document.createElement('div');
+      more.className = 'chip-more';
+      more.textContent = `+${dayTxs.length - maxChips} más`;
+      chipsContainer.appendChild(more);
+    }
+    el.appendChild(chipsContainer);
+
+    // Saldo del día (fijo al final)
+    const dayBal = getBalancesAtDay(curYear, curMonth, d);
+    if (dayBal.total !== 0) {
+      const saldoDiv = document.createElement('div');
+      saldoDiv.className = 'day-saldo';
+      saldoDiv.innerHTML = `<i class="fas fa-coins"></i> $${dayBal.total.toFixed(2)}`;
+      el.appendChild(saldoDiv);
+    }
+
+    // Color de fondo según categoría predominante
+    if (dayTxs.length) {
       const outTxs = dayTxs.filter(t=>t.type==='egreso');
-      if(outTxs.length){
+      if (outTxs.length) {
         const catCount = {};
         outTxs.forEach(t=>{ catCount[t.cat] = (catCount[t.cat]||0) + t.amount; });
         let maxCat = '', maxAmt = 0;
@@ -1770,29 +1904,6 @@ function renderCalendar(){
       }
     }
 
-    dayTxs.slice(0,3).forEach(t=>{
-      const chip = document.createElement('div');
-      let cls = t.type;
-      if (t.type === 'transferencia') {
-        cls = t.destino === 'efectivo' ? 'retiro' : 'transferencia';
-      }
-      chip.className = 'tx-chip '+cls;
-      const label = t.type === 'transferencia' ? (t.destino === 'efectivo' ? '💰' : '🔄') : (t.type==='ingreso'?'+':'-');
-      chip.title = `${t.cat || 'Transferencia'}: $${t.amount.toFixed(2)} — ${t.desc||''}`;
-      chip.textContent = `${t.time} ${label}$${t.amount.toFixed(0)}`;
-      el.appendChild(chip);
-    });
-    if(dayTxs.length>3){ const more=document.createElement('div'); more.className='chip-more'; more.textContent=`+${dayTxs.length-3} más`; el.appendChild(more); }
-
-    // Mostrar saldo final del día (patrimonio total)
-    const dayBal = getBalancesAtDay(curYear, curMonth, d);
-    if(dayBal.total !== 0){
-      const saldoDiv = document.createElement('div');
-      saldoDiv.className = 'day-saldo';
-      saldoDiv.innerHTML = `<i class="fas fa-coins"></i> $${dayBal.total.toFixed(2)}`;
-      el.appendChild(saldoDiv);
-    }
-
     grid.appendChild(el);
   }
 
@@ -1803,7 +1914,6 @@ function renderCalendar(){
   renderBankCashStrip();
   renderTransactionHistory();
   populateCategoryFilter();
-  // Actualizar vista lista si está activa en móvil
   if(currentView === 'list') renderMobileList();
 }
 
@@ -1816,11 +1926,8 @@ function changeMonth(d){
 
 // --- ACTUALIZAR SUELDO ---
 function updateSalary(v){
-  // Limpiar el valor: eliminar espacios y reemplazar coma por punto
   let clean = v.trim().replace(/\s/g, '').replace(',', '.');
-  // Eliminar cualquier caracter no numérico excepto el punto
   clean = clean.replace(/[^0-9.]/g, '');
-  // Si está vacío o solo tiene puntos, es 0
   if (clean === '' || clean === '.') {
     clean = '0';
   }
@@ -1828,11 +1935,9 @@ function updateSalary(v){
   
   const bankId = document.getElementById('salaryBankSelect').value || getDefaultBankId();
   
-  // Guardar sueldo
   saveSalary(curYear, curMonth, amount);
   localStorage.setItem(`salaryBank_${curYear}_${curMonth}`, bankId);
   
-  // Crear o actualizar transacción de sueldo
   let txs = getTx(curYear, curMonth);
   const existingIndex = txs.findIndex(t => t.cat === 'Sueldo' && t.type === 'ingreso');
   if (existingIndex !== -1) {
@@ -1866,7 +1971,6 @@ function updateSalary(v){
 function updateSalaryBank(bankId){
   localStorage.setItem(`salaryBank_${curYear}_${curMonth}`, bankId);
   setDefaultBankId(bankId);
-  // Actualizar la transacción de sueldo existente con el nuevo banco
   let txs = getTx(curYear, curMonth);
   const idx = txs.findIndex(t => t.cat === 'Sueldo' && t.type === 'ingreso');
   if (idx !== -1) {
@@ -2173,7 +2277,6 @@ function renderModalTxs(){
 
 function closeModal(){
   document.getElementById('modalBg').classList.remove('open');
-  // Restaurar nav inferior y FAB
   const mobileNav = document.querySelector('.mobile-nav');
   const fab = document.getElementById('fabBtn');
   if (mobileNav) mobileNav.style.display = '';
@@ -2226,7 +2329,7 @@ function saveTransaction(){
   renderCalendar();
   showToast('Transacción guardada ✓');
   if(document.getElementById('page-dashboard').classList.contains('active')) renderDashboard();
-  closeModal(); // closeModal ya restaura el nav
+  closeModal();
 }
 
 function deleteTx(id){
@@ -2298,7 +2401,6 @@ function openEditModal(id){
 
 function closeEditModal(){
   document.getElementById('editModalBg').classList.remove('open');
-  // Restaurar por si acaso (aunque este modal no tiene el problema del nav inferior, lo incluimos por consistencia)
   const mobileNav = document.querySelector('.mobile-nav');
   const fab = document.getElementById('fabBtn');
   if (mobileNav) mobileNav.style.display = '';
@@ -2383,7 +2485,6 @@ function renderDashboard(){
     displayMonth = parseInt(parts[1]) - 1;
   }
 
-  // Si hay filtro de mes, usamos ese mes. Si no, acumulamos todos los meses.
   const allMonths = getAllMonthsWithData();
   
   let txs = [];
@@ -2392,13 +2493,11 @@ function renderDashboard(){
   let out = 0;
   
   if(filterMonth) {
-    // Modo filtrado: solo el mes seleccionado
     txs = getTx(displayYear, displayMonth);
     salary = getSalary(displayYear, displayMonth);
     extra = txs.filter(t=>t.type==='ingreso'&&t.cat!=='Sueldo').reduce((a,b)=>a+b.amount,0);
     out = txs.filter(t=>t.type==='egreso').reduce((a,b)=>a+b.amount,0);
   } else {
-    // Modo acumulado: sumar todos los meses
     allMonths.forEach(m => {
       const mTxs = getTx(m.year, m.month);
       const mSalary = getSalary(m.year, m.month);
@@ -2413,25 +2512,21 @@ function renderDashboard(){
     displayMonth = curMonth;
   }
 
-  // Aplicar filtros de categoría y tag
   let filteredTxs = txs;
   if(filterCat !== 'all') filteredTxs = filteredTxs.filter(t=>t.cat===filterCat);
   if(filterTag) filteredTxs = filteredTxs.filter(t=> (t.tags||'').toLowerCase().includes(filterTag));
 
-  // Calcular patrimonio total (bancos + efectivo) para el periodo filtrado
   let bankBalances = {};
   const banks = getBanks();
   banks.forEach(b => { bankBalances[b.id] = 0; });
   let cashBalance = 0;
   
-  // Si hay filtro de mes, calcular saldos hasta el mes filtrado
   if(filterMonth) {
     const daysInMonth = new Date(displayYear, displayMonth+1, 0).getDate();
     const dayBal = getBalancesAtDay(displayYear, displayMonth, daysInMonth);
     bankBalances = dayBal.bankBalances;
     cashBalance = dayBal.cashBalance;
   } else {
-    // Si no hay filtro, usar los saldos globales actuales
     const globalBalances = getBankBalances();
     banks.forEach(b => { bankBalances[b.id] = globalBalances[b.id] || 0; });
     cashBalance = getCashBalance();
@@ -2467,7 +2562,6 @@ function renderDashboard(){
   
   document.getElementById('dashSummary').innerHTML = dashSummaryHtml;
 
-  // Gráficos con filteredTxs
   const catTotals = {};
   const egresosFiltrados = filteredTxs.filter(t=>t.type==='egreso');
   egresosFiltrados.forEach(t=>{ catTotals[t.cat] = (catTotals[t.cat]||0) + t.amount; });
@@ -2492,7 +2586,6 @@ function renderDashboard(){
     options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false } }, scales:{ y:{ beginAtZero:true, ticks:{ callback:v=>'$'+v.toLocaleString() } } } }
   });
 
-  // Tendencia mensual
   const last6 = allMonths.slice(-6);
   if(trendInst){ trendInst.destroy(); trendInst=null; }
   if(last6.length){
@@ -2706,35 +2799,60 @@ function renderHistory(allMonths){
   }).join('');
 }
 
-// --- TABLA CATEGORÍAS ---
+// ======================================================================
+//  TABLA CATEGORÍAS CORREGIDA (sin duplicados)
+// ======================================================================
 function renderCategoryTable(year, month, filteredTxs, salary){
   const cfg = getPctConfig();
   const cats = getCategories().filter(c=>c.type==='egreso'||c.type==='ambos');
   const budgetPerCat = getBudgetPerCat();
   const catTotals = {};
   filteredTxs.filter(t=>t.type==='egreso').forEach(t=>{ catTotals[t.cat] = (catTotals[t.cat]||0) + t.amount; });
+  
   const tbody = document.querySelector('#catTable tbody');
-  tbody.innerHTML = cats.map(cat=>{
+  let html = '';
+  let totalPresupuesto = 0;
+  let totalGastado = 0;
+
+  cats.forEach(cat => {
     const gastado = catTotals[cat.name] || 0;
     let presup = null;
-    if(budgetPerCat[cat.name] !== undefined && budgetPerCat[cat.name] !== null && budgetPerCat[cat.name] !== ''){
+    if (budgetPerCat[cat.name] !== undefined && budgetPerCat[cat.name] !== null && budgetPerCat[cat.name] !== '') {
       presup = parseFloat(budgetPerCat[cat.name]);
     } else {
-      if(['Básicos','Comida','Salud','Transporte'].includes(cat.name)) presup = salary * cfg.basic/100;
-      else if(cat.name==='Gastos personales') presup = salary * cfg.personal/100;
-      else if(cat.name==='Ahorros') presup = salary * cfg.saving/100;
+      if (['Básicos','Comida','Salud','Transporte'].includes(cat.name)) presup = salary * cfg.basic/100;
+      else if (cat.name === 'Gastos personales') presup = salary * cfg.personal/100;
+      else if (cat.name === 'Ahorros') presup = salary * cfg.saving/100;
     }
-    const diff = presup!=null ? presup - gastado : null;
-    const st = presup!=null ? getBudgetStatus(gastado, presup) : null;
-    const bar = presup!=null ? `<div class="prog-bar"><div class="prog-fill" style="width:${Math.min(100,gastado/presup*100).toFixed(0)}%;background:${st.label==='Excedido'?'var(--coral)':st.label==='Crítico'?'#E08050':st.label==='Advertencia'?'var(--yellow)':'var(--emerald)'}"></div></div>` : '';
-    return `<tr>
-      <td><span style="display:inline-block;width:12px;height:12px;border-radius:4px;background:${cat.color};margin-right:8px;vertical-align:middle"></span>${cat.name}</td>
-      <td>${presup!=null?'$'+presup.toFixed(2):'—'}</td>
+    // Si no hay presupuesto, no calculamos diferencia ni estado
+    const diff = presup !== null ? presup - gastado : null;
+    const st = presup !== null ? getBudgetStatus(gastado, presup) : null;
+    const bar = presup !== null ? `<div class="prog-bar"><div class="prog-fill" style="width:${Math.min(100, gastado/presup*100).toFixed(0)}%;background:${st.label==='Excedido'?'var(--coral)':st.label==='Crítico'?'#E08050':st.label==='Advertencia'?'var(--yellow)':'var(--emerald)'}"></div></div>` : '';
+
+    if (presup !== null) {
+      totalPresupuesto += presup;
+      totalGastado += gastado;
+    }
+
+    html += `<tr>
+      <td><span style="display:inline-block;width:12px;height:12px;border-radius:4px;background:${cat.color};margin-right:8px;vertical-align:middle;box-shadow:0 0 8px ${cat.color}44"></span>${cat.name}</td>
+      <td>${presup !== null ? '$'+presup.toFixed(2) : '—'}</td>
       <td>$${gastado.toFixed(2)}${bar}</td>
-      <td>${st?`<span class="budget-status ${st.cls}">${st.icon} ${st.label}</span>`:'—'}</td>
-      <td style="color:${diff==null?'inherit':diff>=0?'var(--emerald)':'var(--coral)'};font-weight:700">${diff!=null?(diff>=0?'+':'')+'$'+diff.toFixed(2):'—'}</td>
+      <td>${st ? `<span class="budget-status ${st.cls}">${st.icon} ${st.label}</span>` : '—'}</td>
+      <td style="color:${diff === null ? 'inherit' : diff >= 0 ? 'var(--emerald)' : 'var(--coral)'};font-weight:700">${diff !== null ? (diff >= 0 ? '+' : '') + '$' + diff.toFixed(2) : '—'}</td>
     </tr>`;
-  }).join('');
+  });
+
+  // Fila de totales
+  html += `<tr class="total-row">
+    <td><strong>Total</strong></td>
+    <td><strong>$${totalPresupuesto.toFixed(2)}</strong></td>
+    <td><strong>$${totalGastado.toFixed(2)}</strong></td>
+    <td></td>
+    <td style="color:${(totalPresupuesto - totalGastado) >= 0 ? 'var(--emerald)' : 'var(--coral)'};font-weight:700">${(totalPresupuesto - totalGastado) >= 0 ? '+' : ''}$${(totalPresupuesto - totalGastado).toFixed(2)}</td>
+  </tr>`;
+
+  tbody.innerHTML = html;
 }
 
 // ======================================================================
@@ -3177,13 +3295,11 @@ function showPage(p, btn, mobileBtn){
   document.getElementById('page-'+p).classList.add('active');
   if(btn) btn.classList.add('active');
   if(mobileBtn) mobileBtn.classList.add('active');
-  // Sincronizar nav desktop ↔ móvil
   const pageToMnav = {calendar:'mnavCalendar', dashboard:'mnavDashboard', settings:'mnavSettings'};
   const mnavId = pageToMnav[p];
   if(mnavId) document.getElementById(mnavId)?.classList.add('active');
   if(p==='dashboard') renderDashboard();
   if(p==='settings') renderSettingsPage();
-  // Ocultar FAB en dashboard y settings
   const fab = document.getElementById('fabBtn');
   if(fab) fab.style.display = p==='calendar' ? '' : 'none';
 }
@@ -3352,12 +3468,9 @@ function showLockScreen(){
 function unlockApp(){
   document.getElementById('lockScreen').classList.add('hidden');
   document.getElementById('app').style.display = 'block';
-  
-  // Asegurar que los bancos por defecto existan
   if(!localStorage.getItem('banks')){
     saveBanks([...DEFAULT_BANKS]);
   }
-  
   recalcGlobalBalances();
   renderAll();
 }
@@ -3410,17 +3523,14 @@ function renderPinStatus(){
 //  MOBILE — FAB, VISTA LISTA, NAV INFERIOR
 // ======================================================================
 
-// Estado de la vista actual
-let currentView = 'cal'; // 'cal' | 'list'
+let currentView = 'cal';
 
-// FAB: abre el modal con la fecha de hoy (o el último día del mes si es mes pasado)
 function openFab(){
   const today = new Date();
   let day;
   if(curYear === today.getFullYear() && curMonth === today.getMonth()){
     day = today.getDate();
   } else if(new Date(curYear, curMonth+1, 0) < today){
-    // Mes pasado: abrir el último día
     day = new Date(curYear, curMonth+1, 0).getDate();
   } else {
     showToast('No puedes agregar en meses futuros', 'red');
@@ -3429,7 +3539,6 @@ function openFab(){
   openModal(day);
 }
 
-// Quick amounts: setea el monto en el input
 function setQuickAmt(val){
   const input = document.getElementById('txAmount');
   const current = parseFloat(input.value) || 0;
@@ -3437,7 +3546,6 @@ function setQuickAmt(val){
   input.focus();
 }
 
-// Toggle entre vista calendario y lista
 function switchView(view){
   currentView = view;
   const calView = document.getElementById('calView');
@@ -3459,7 +3567,6 @@ function switchView(view){
   }
 }
 
-// Renderiza la vista lista para móvil
 function renderMobileList(){
   const txs = getTx(curYear, curMonth).slice().sort((a,b)=> a.day!==b.day ? a.day-b.day : a.time.localeCompare(b.time));
   const container = document.getElementById('mobileListContent');
@@ -3509,7 +3616,6 @@ function renderMobileList(){
   container.innerHTML = html;
 }
 
-// Abrir edit modal desde la lista (sin necesitar selectedDay)
 function openEditModalFromList(id){
   const allTxs = getTx(curYear, curMonth);
   const tx = allTxs.find(t=>t.id===id);
@@ -3517,9 +3623,6 @@ function openEditModalFromList(id){
   selectedDay = tx.day;
   openEditModal(id);
 }
-
-// Sincroniza el tab activo del nav inferior con showPage
-const _origShowPage = typeof showPage === 'function' ? showPage : null;
 
 // ======================================================================
 //  REGISTRAR SERVICE WORKER (PWA)
