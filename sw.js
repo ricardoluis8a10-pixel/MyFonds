@@ -3,7 +3,7 @@
 //  Cachea los archivos esenciales para funcionar offline
 // ============================================================
 
-const CACHE_NAME = 'myfonds-v4'; // FAB Y TEMA EN CONFIGURACION
+const CACHE_NAME = 'myfonds-v5'; // FAB Y TEMA EN CONFIGURACION
 const urlsToCache = [
   './',
   './index.html',
